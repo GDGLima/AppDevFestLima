@@ -392,9 +392,9 @@ public class SessionsFragment extends SherlockListFragment implements
 
         if (numSelectedSessions == 1) {
             // activate all the menu item
-            mMapMenuItem.setVisible(true);
+            mMapMenuItem.setVisible(false);
             mShareMenuItem.setVisible(true);
-            mSocialStreamMenuItem.setVisible(true);
+            mSocialStreamMenuItem.setVisible(false);
             mStarredMenuItem.setVisible(true);
             position = mSelectedSessionPositions.iterator().next();
             Cursor cursor = (Cursor) mAdapter.getItem(position);

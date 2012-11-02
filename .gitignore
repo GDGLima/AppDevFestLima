@@ -11,6 +11,7 @@
 # generated files
 bin/
 gen/
+<<<<<<< HEAD
 out/
 
 # Local configuration file (sdk path, etc)
@@ -27,3 +28,8 @@ local.properties
 # Sandbox stuff
 _sandbox
 
+=======
+
+# Local configuration file (sdk path, etc)
+local.properties
+>>>>>>> e4a4e6aa0e95d6d4598ab8d7e6f5bb9d7b1857e1

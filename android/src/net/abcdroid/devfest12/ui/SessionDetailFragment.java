@@ -296,7 +296,7 @@ public class SessionDetailFragment extends SherlockFragment implements
             mRootView.findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
         }
 
-        ViewGroup linksContainer = (ViewGroup) mRootView.findViewById(R.id.links_container);
+        ViewGroup linksContainer = (ViewGroup) mRootView.findViewById(R.id.links_container);linksContainer.setEnabled(false);
         linksContainer.removeAllViews();
 
         LayoutInflater inflater = getLayoutInflater(null);
@@ -363,8 +363,8 @@ public class SessionDetailFragment extends SherlockFragment implements
         UIUtils.updateTimeAndLivestreamBlockUI(context,
                 mSessionBlockStart, mSessionBlockEnd, hasLivestream,
                 null, null, mSubtitle, subtitle);
-        mRootView.findViewById(R.id.session_links_block)
-                .setVisibility(hasLinks ? View.VISIBLE : View.GONE);
+//        mRootView.findViewById(R.id.session_links_block)
+//                .setVisibility(hasLinks ? View.VISIBLE : View.GONE);
         
         EasyTracker.getTracker().trackView("Session: " + mTitleString);
         LOGD("Tracker", "Session: " + mTitleString);
@@ -374,7 +374,7 @@ public class SessionDetailFragment extends SherlockFragment implements
         mDeferredUiOperations.add(new Runnable() {
             @Override
             public void run() {
-                mSocialStreamMenuItem.setVisible(true);
+                mSocialStreamMenuItem.setVisible(false);
             }
         });
         tryExecuteDeferredUiOperations();

@@ -14,7 +14,7 @@
   limitations under the License.
   -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">DevFest Lima 2012</string>
+    <string name="app_name">DevFest Lima</string>
 
     <string name="description_search">Buscar</string>
     <string name="description_map">Map</string>
@@ -43,7 +43,7 @@
     <string name="title_search">Buscar</string>
     <string name="title_search_query">Buscar por \"&lt;b&gt;<xliff:g id="query">%1$s</xliff:g>&lt;b&gt;\"</string>
 
-    <string name="title_my_schedule">Agenda</string>
+    <string name="title_my_schedule">Mi Agenda</string>
     <string name="title_explore">Sesiones</string>
     <string name="title_stream">Stream</string>
 
@@ -146,8 +146,13 @@
     <string name="about_licenses">Licencia Open Source</string>
     <string name="about_body"><![CDATA[
         <b>DevFest Lima 2012</b><br>
-        Version %s<br><br>
-        <a href="http://m.google.com/utos">Terminos del Servicio</a><br><br>
+        Version %s<br>
+        <b>Gracias al equipo Android de GDGLima</b><br>
+        -<a href="https://plus.google.com/u/0/108828677217868107649">Armando Meison</a><br>
+        -<a href="https://plus.google.com/u/0/101711193087760651471">Alvaro Gonzales</a><br>
+        -<a href="https://plus.google.com/u/0/104677978417503697355">Jhoon Saravia</a><br>
+        -<a href="https://plus.google.com/u/0/100246763730950354673">David Motta B</a><br><br><br>
+        <a href="http://m.google.com/utos">Terminos del Servicio</a><br>
         <a href="http://www.google.com/policies/privacy/">Politica de Privacidad</a>
     ]]></string>
 

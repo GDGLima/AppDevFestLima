@@ -92,8 +92,8 @@ public class SyncHelper {
     public static final int FLAG_SYNC_REMOTE = 0x2;
 
 	private static final int LOCAL_VERSION_CURRENT = 19;
-	
-	private static final String URL_SRV = "https://gdgdevfestlima.appspot.com/json/";
+	private static final String URL_SRV = "https://raw.github.com/ameison/gdglima-devfest/master/android/res/raw/";
+	//private static final String URL_SRV = "https://gdgdevfestlima.appspot.com/json/";
 	//private static final String URL_SRV = "http://10.10.3.61:8888/json/";
 	private static final String rooms = URL_SRV + "rooms.json";
 	private static final String common_slots = URL_SRV + "common_slots.json";
@@ -143,35 +143,35 @@ public class SyncHelper {
             if (true) {
             	
                 // Load static local data
-//                batch.addAll(new RoomsHandler(mContext).parse(
-//                        JSONHandler.loadResourceJson(mContext, R.raw.rooms)));
-//                batch.addAll(new BlocksHandler(mContext).parse(
-//                        JSONHandler.loadResourceJson(mContext, R.raw.common_slots)));
-//                batch.addAll(new TracksHandler(mContext).parse(
-//                        JSONHandler.loadResourceJson(mContext, R.raw.tracks)));
-//                batch.addAll(new SpeakersHandler(mContext, true).parse(
-//                        JSONHandler.loadResourceJson(mContext, R.raw.speakers)));
-//                batch.addAll(new SessionsHandler(mContext, true, false).parse(
-//                        JSONHandler.loadResourceJson(mContext, R.raw.sessions)));
-//                batch.addAll(new SandboxHandler(mContext, true).parse(
-//                        JSONHandler.loadResourceJson(mContext, R.raw.sandbox)));
-//                batch.addAll(new SearchSuggestHandler(mContext).parse(
-//                        JSONHandler.loadResourceJson(mContext, R.raw.search_suggest)));            	
-            	
                 batch.addAll(new RoomsHandler(mContext).parse(
-                        JSONHandler.loadResourceJsonRemote(mContext, rooms)));
+                        JSONHandler.loadResourceJson(mContext, R.raw.rooms)));
                 batch.addAll(new BlocksHandler(mContext).parse(
-                        JSONHandler.loadResourceJsonRemote(mContext, common_slots)));
+                        JSONHandler.loadResourceJson(mContext, R.raw.common_slots)));
                 batch.addAll(new TracksHandler(mContext).parse(
-                        JSONHandler.loadResourceJsonRemote(mContext, tracks)));
+                        JSONHandler.loadResourceJson(mContext, R.raw.tracks)));
                 batch.addAll(new SpeakersHandler(mContext, true).parse(
-                        JSONHandler.loadResourceJsonRemote(mContext, speakers)));
+                        JSONHandler.loadResourceJson(mContext, R.raw.speakers)));
                 batch.addAll(new SessionsHandler(mContext, true, false).parse(
-                        JSONHandler.loadResourceJsonRemote(mContext, sessions)));
+                        JSONHandler.loadResourceJson(mContext, R.raw.sessions)));
                 batch.addAll(new SandboxHandler(mContext, true).parse(
-                        JSONHandler.loadResourceJsonRemote(mContext, sandbox)));
+                        JSONHandler.loadResourceJson(mContext, R.raw.sandbox)));
                 batch.addAll(new SearchSuggestHandler(mContext).parse(
-                        JSONHandler.loadResourceJsonRemote(mContext, search_suggest)));
+                        JSONHandler.loadResourceJson(mContext, R.raw.search_suggest)));            	
+            	
+//                batch.addAll(new RoomsHandler(mContext).parse(
+//                        JSONHandler.loadResourceJsonRemote(mContext, rooms)));
+//                batch.addAll(new BlocksHandler(mContext).parse(
+//                        JSONHandler.loadResourceJsonRemote(mContext, common_slots)));
+//                batch.addAll(new TracksHandler(mContext).parse(
+//                        JSONHandler.loadResourceJsonRemote(mContext, tracks)));
+//                batch.addAll(new SpeakersHandler(mContext, true).parse(
+//                        JSONHandler.loadResourceJsonRemote(mContext, speakers)));
+//                batch.addAll(new SessionsHandler(mContext, true, false).parse(
+//                        JSONHandler.loadResourceJsonRemote(mContext, sessions)));
+//                batch.addAll(new SandboxHandler(mContext, true).parse(
+//                        JSONHandler.loadResourceJsonRemote(mContext, sandbox)));
+//                batch.addAll(new SearchSuggestHandler(mContext).parse(
+//                        JSONHandler.loadResourceJsonRemote(mContext, search_suggest)));
                 
                 prefs.edit().putInt("local_data_version", LOCAL_VERSION_CURRENT).commit();
                 if (syncResult != null) {
@@ -194,65 +194,69 @@ public class SyncHelper {
             batch = new ArrayList<ContentProviderOperation>();
         }
 
-        if ((flags & FLAG_SYNC_REMOTE) != 0 && isOnline()) {
-            try {
-                boolean auth = !UIUtils.isGoogleTV(mContext) &&
-                        AccountUtils.isAuthenticated(mContext);
-                final long startRemote = System.currentTimeMillis();
-                LOGI(TAG, "Remote syncing speakers");
-                batch.addAll(executeGet(Config.GET_ALL_SPEAKERS_URL,
-                        new SpeakersHandler(mContext, false), auth));
-                LOGI(TAG, "Remote syncing sessions");
-                batch.addAll(executeGet(Config.GET_ALL_SESSIONS_URL,
-                        new SessionsHandler(mContext, false, mAuthToken != null), auth));
-                LOGI(TAG, "Remote syncing sandbox");
-                batch.addAll(executeGet(Config.GET_SANDBOX_URL,
-                        new SandboxHandler(mContext, false), auth));
-                LOGI(TAG, "Remote syncing announcements");
-                batch.addAll(executeGet(Config.GET_ALL_ANNOUNCEMENTS_URL,
-                        new AnnouncementsHandler(mContext, false), auth));
-                // GET_ALL_SESSIONS covers the functionality GET_MY_SCHEDULE provides here.
-                LOGD(TAG, "Remote sync took " + (System.currentTimeMillis() - startRemote) + "ms");
-                if (syncResult != null) {
-                    ++syncResult.stats.numUpdates;
-                    ++syncResult.stats.numEntries;
-                }
+		if ((flags & FLAG_SYNC_REMOTE) != 0 && isOnline()) {
+			try {
+				boolean auth = !UIUtils.isGoogleTV(mContext) && AccountUtils.isAuthenticated(mContext);
+				final long startRemote = System.currentTimeMillis();
+				LOGI(TAG, "Remote syncing speakers");
+//				batch.addAll(executeGet(Config.GET_ALL_SPEAKERS_URL, new SpeakersHandler(mContext, false), auth));
+//				LOGI(TAG, "Remote syncing sessions");
+//				batch.addAll(executeGet(Config.GET_ALL_SESSIONS_URL, new SessionsHandler(mContext, false, mAuthToken != null), auth));
+//				LOGI(TAG, "Remote syncing sandbox");
+//				batch.addAll(executeGet(Config.GET_SANDBOX_URL, new SandboxHandler(mContext, false), auth));
+//				LOGI(TAG, "Remote syncing announcements");
+//				batch.addAll(executeGet(Config.GET_ALL_ANNOUNCEMENTS_URL, new AnnouncementsHandler(mContext, false), auth));
+				// GET_ALL_SESSIONS covers the functionality GET_MY_SCHEDULE
+				// provides here.
+				
+                batch.addAll(new RoomsHandler(mContext).parse(
+                        JSONHandler.loadResourceJsonRemote(mContext, rooms)));
+                batch.addAll(new BlocksHandler(mContext).parse(
+                        JSONHandler.loadResourceJsonRemote(mContext, common_slots)));
+                batch.addAll(new TracksHandler(mContext).parse(
+                        JSONHandler.loadResourceJsonRemote(mContext, tracks)));
+                batch.addAll(new SpeakersHandler(mContext, true).parse(
+                        JSONHandler.loadResourceJsonRemote(mContext, speakers)));
+                batch.addAll(new SessionsHandler(mContext, true, false).parse(
+                        JSONHandler.loadResourceJsonRemote(mContext, sessions)));
+				
+				
+				LOGD(TAG, "Remote sync took " + (System.currentTimeMillis() - startRemote) + "ms");
+				if (syncResult != null) {
+					++syncResult.stats.numUpdates;
+					++syncResult.stats.numEntries;
+				}
 
-                EasyTracker.getTracker().dispatch();
+				EasyTracker.getTracker().dispatch();
 
-            } catch (HandlerException.UnauthorizedException e) {
-                LOGI(TAG, "Unauthorized; getting a new auth token.", e);
-                if (syncResult != null) {
-                    ++syncResult.stats.numAuthExceptions;
-                }
-                AccountUtils.invalidateAuthToken(mContext);
-                AccountUtils.tryAuthenticateWithErrorNotification(mContext, null,
-                        new Account(AccountUtils.getChosenAccountName(mContext),
-                                GoogleAccountManager.ACCOUNT_TYPE));
-            }
-            // all other IOExceptions are thrown
-        }
+			} catch (HandlerException.UnauthorizedException e) {
+				LOGI(TAG, "Unauthorized; getting a new auth token.", e);
+				if (syncResult != null) {
+					++syncResult.stats.numAuthExceptions;
+				}
+				AccountUtils.invalidateAuthToken(mContext);
+				AccountUtils.tryAuthenticateWithErrorNotification(mContext, null, new Account(AccountUtils.getChosenAccountName(mContext), GoogleAccountManager.ACCOUNT_TYPE));
+			}
+			// all other IOExceptions are thrown
+		}
 
         try {
-            // Apply all queued up remaining batch operations (only remote content at this point).
-            resolver.applyBatch(ScheduleContract.CONTENT_AUTHORITY, batch);
+			// Apply all queued up remaining batch operations (only remote
+			// content at this point).
+			resolver.applyBatch(ScheduleContract.CONTENT_AUTHORITY, batch);
 
-            // Delete empty blocks
-            Cursor emptyBlocksCursor = resolver.query(ScheduleContract.Blocks.CONTENT_URI,
-                    new String[]{ScheduleContract.Blocks.BLOCK_ID,ScheduleContract.Blocks.SESSIONS_COUNT},
-                    ScheduleContract.Blocks.EMPTY_SESSIONS_SELECTION, null, null);
-            batch = new ArrayList<ContentProviderOperation>();
-            int numDeletedEmptyBlocks = 0;
-            while (emptyBlocksCursor.moveToNext()) {
-                batch.add(ContentProviderOperation
-                        .newDelete(ScheduleContract.Blocks.buildBlockUri(
-                                emptyBlocksCursor.getString(0)))
-                        .build());
-                ++numDeletedEmptyBlocks;
-            }
-            emptyBlocksCursor.close();
-            resolver.applyBatch(ScheduleContract.CONTENT_AUTHORITY, batch);
-            LOGD(TAG, "Deleted " + numDeletedEmptyBlocks + " empty session blocks.");
+			// Delete empty blocks
+			Cursor emptyBlocksCursor = resolver.query(ScheduleContract.Blocks.CONTENT_URI, new String[] { ScheduleContract.Blocks.BLOCK_ID, ScheduleContract.Blocks.SESSIONS_COUNT },
+					ScheduleContract.Blocks.EMPTY_SESSIONS_SELECTION, null, null);
+			batch = new ArrayList<ContentProviderOperation>();
+			int numDeletedEmptyBlocks = 0;
+			while (emptyBlocksCursor.moveToNext()) {
+				batch.add(ContentProviderOperation.newDelete(ScheduleContract.Blocks.buildBlockUri(emptyBlocksCursor.getString(0))).build());
+				++numDeletedEmptyBlocks;
+			}
+			emptyBlocksCursor.close();
+			resolver.applyBatch(ScheduleContract.CONTENT_AUTHORITY, batch);
+			LOGD(TAG, "Deleted " + numDeletedEmptyBlocks + " empty session blocks.");
         } catch (RemoteException e) {
             throw new RuntimeException("Problem applying batch operation", e);
         } catch (OperationApplicationException e) {
